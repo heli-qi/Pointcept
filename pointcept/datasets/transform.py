@@ -819,7 +819,9 @@ class GridSample(object):
         if self.mode == "train":  # train mode
             idx_select = (
                 np.cumsum(np.insert(count, 0, 0)[0:-1])
-                + np.random.randint(0, count.max(), count.size) % count
+                # Begin(heli-qi): remove the randomness during training and validation
+                # + np.random.randint(0, count.max(), count.size) % count
+                # End(heli-qi)
             )
             idx_unique = idx_sort[idx_select]
             if "sampled_index" in data_dict:
